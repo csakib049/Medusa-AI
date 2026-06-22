@@ -10,8 +10,42 @@
   }
 }
 
+:root,
+[data-theme="green"] {
+  --color-accent: #34d399;
+  --color-accent-secondary: #0d9488;
+  --color-accent-glow: rgba(52, 211, 153, 0.25);
+  --color-accent-glow-hover: rgba(52, 211, 153, 0.4);
+  --color-orb-primary: rgba(52, 211, 153, 0.12);
+  --color-orb-secondary: rgba(13, 148, 136, 0.08);
+  --color-pulse-start: rgba(52, 211, 153, 0.05);
+  --color-pulse-end: rgba(52, 211, 153, 0.12);
+}
+
+[data-theme="purple"] {
+  --color-accent: #a78bfa;
+  --color-accent-secondary: #7c3aed;
+  --color-accent-glow: rgba(167, 139, 250, 0.25);
+  --color-accent-glow-hover: rgba(167, 139, 250, 0.4);
+  --color-orb-primary: rgba(167, 139, 250, 0.12);
+  --color-orb-secondary: rgba(124, 58, 237, 0.08);
+  --color-pulse-start: rgba(167, 139, 250, 0.05);
+  --color-pulse-end: rgba(167, 139, 250, 0.12);
+}
+
+[data-theme="red"] {
+  --color-accent: #f87171;
+  --color-accent-secondary: #dc2626;
+  --color-accent-glow: rgba(248, 113, 113, 0.25);
+  --color-accent-glow-hover: rgba(248, 113, 113, 0.4);
+  --color-orb-primary: rgba(248, 113, 113, 0.12);
+  --color-orb-secondary: rgba(220, 38, 38, 0.08);
+  --color-pulse-start: rgba(248, 113, 113, 0.05);
+  --color-pulse-end: rgba(248, 113, 113, 0.12);
+}
+
 body {
-  font-family: 'Source Code Pro', monospace;
+  font-family: 'Space Mono', monospace;
   background: #000000;
   color: #e5e7eb;
   min-height: 100vh;
@@ -29,7 +63,7 @@ body {
   color: #f9fafb;
 }
 .prose code {
-  color: #34d399;
+  color: var(--color-accent);
   background: #1f2937;
   padding: 0.2em 0.4em;
   border-radius: 4px;
@@ -43,7 +77,7 @@ body {
   overflow-x: auto;
 }
 .prose a {
-  color: #34d399;
+  color: var(--color-accent);
 }
 
 /* ─── Animated gradient background ─── */
@@ -51,6 +85,11 @@ body {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
 }
 
 #background {
@@ -61,7 +100,7 @@ body {
   height: 100%;
   background: linear-gradient(-45deg, #000000, #0a0a0f, #0d1117, #000000);
   background-size: 400% 400%;
-  animation: gradientShift 20s ease infinite;
+  animation: gradientShift 20s ease infinite, breathe 8s ease-in-out infinite;
   z-index: -1;
 }
 
@@ -85,7 +124,7 @@ body {
 #background::before {
   width: 400px;
   height: 400px;
-  background: rgba(52, 211, 153, 0.12);
+  background: var(--color-orb-primary);
   top: 10%;
   left: -5%;
   animation: floatOrb 18s ease-in-out infinite;
@@ -94,7 +133,7 @@ body {
 #background::after {
   width: 500px;
   height: 500px;
-  background: rgba(13, 148, 136, 0.08);
+  background: var(--color-orb-secondary);
   bottom: 5%;
   right: -5%;
   animation: floatOrb 22s ease-in-out infinite reverse;
@@ -118,8 +157,8 @@ body {
 }
 
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 20px rgba(52, 211, 153, 0.05); }
-  50% { box-shadow: 0 0 40px rgba(52, 211, 153, 0.12); }
+  0%, 100% { box-shadow: 0 0 20px var(--color-pulse-start); }
+  50% { box-shadow: 0 0 40px var(--color-pulse-end); }
 }
 
 .animate-fadeInUp {

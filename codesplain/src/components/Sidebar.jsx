@@ -1,6 +1,28 @@
 import PropTypes from 'prop-types'
+import { useTheme } from '../context/ThemeContext'
 
 const Sidebar = ({ history, activeId, onSelect, onNewChat, onDelete }) => {
+  const { theme, cycleTheme } = useTheme()
+
+  const themeLabels = { green: 'Green', purple: 'Purple', red: 'Red' }
+  const themeIcons = {
+    green: (
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+      </svg>
+    ),
+    purple: (
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3l14 9-14 9V3z" />
+      </svg>
+    ),
+    red: (
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+      </svg>
+    ),
+  }
+
   return (
     <aside className="w-72 h-screen fixed left-0 top-0 bg-black/60 backdrop-blur-xl border-r border-gray-800 flex flex-col z-10">
       <div className="p-4 border-b border-gray-800">
@@ -32,7 +54,7 @@ const Sidebar = ({ history, activeId, onSelect, onNewChat, onDelete }) => {
               className="flex items-center gap-2 flex-1 min-w-0"
               onClick={() => onSelect(item.id)}
             >
-              <svg className="w-4 h-4 flex-shrink-0 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: 'var(--color-accent)' }}>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
               </svg>
               <span className="truncate">{item.title}</span>
@@ -50,7 +72,15 @@ const Sidebar = ({ history, activeId, onSelect, onNewChat, onDelete }) => {
         ))}
       </div>
 
-      <div className="p-3 border-t border-gray-800 text-center">
+      <div className="p-3 border-t border-gray-800 flex items-center justify-between">
+        <button
+          onClick={cycleTheme}
+          className="flex items-center gap-2 text-xs text-gray-500 hover:text-gray-300 transition-colors duration-200"
+          title={`Theme: ${themeLabels[theme]}`}
+        >
+          {themeIcons[theme]}
+          <span>{themeLabels[theme]}</span>
+        </button>
         <span className="text-xs text-gray-600">Medusa AI</span>
       </div>
     </aside>

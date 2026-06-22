@@ -88,7 +88,7 @@ const CodeEntry = () => {
           {showLoading && (
             <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700 p-6 rounded-2xl shadow-2xl animate-fadeInUp">
               <div className="flex items-center gap-3 text-gray-400">
-                <div className="animate-spin w-5 h-5 border-2 border-emerald-500 border-t-transparent rounded-full" />
+                <div className="animate-spin w-5 h-5 border-2 border-t-transparent rounded-full" style={{ borderColor: 'var(--color-accent)', borderTopColor: 'transparent' }} />
                 <span>Analyzing your code...</span>
               </div>
             </div>

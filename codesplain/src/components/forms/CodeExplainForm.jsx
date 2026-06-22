@@ -50,7 +50,7 @@ const CodeExplainForm = ({ onResult, onStatus, onClearView }) => {
         <select
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
-          className='border border-gray-600 bg-gray-800 text-white rounded-lg p-2.5 w-full mb-5 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none'
+          className='border border-gray-600 bg-gray-800 text-white rounded-lg p-2.5 w-full mb-5 focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] outline-none'
         >
           <option value="javascript">JavaScript</option>
           <option value="Python">Python</option>
@@ -63,14 +63,14 @@ const CodeExplainForm = ({ onResult, onStatus, onClearView }) => {
           onChange={(e) => setCode(e.target.value)}
           required
           placeholder='Paste your code here...'
-          className='text-white border border-gray-600 rounded-lg w-full p-3 font-mono text-sm bg-gray-800 min-h-[200px] resize-y focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none'
+          className='text-white border border-gray-600 rounded-lg w-full p-3 font-mono text-sm bg-gray-800 min-h-[200px] resize-y focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] outline-none'
         />
 
         <div className="flex gap-3">
           <button
             type="submit"
             disabled={isPending}
-            className="mt-4 px-10 py-2.5 rounded-lg font-semibold text-white bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 active:scale-95 active:shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40"
+            className="mt-4 px-10 py-2.5 rounded-lg font-semibold text-white bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-secondary)] hover:brightness-110 active:scale-95 active:shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg shadow-[var(--color-accent-glow)] hover:shadow-[var(--color-accent-glow-hover)]"
           >
             {isPending ? "Explaining..." : "Explain Code"}
           </button>
