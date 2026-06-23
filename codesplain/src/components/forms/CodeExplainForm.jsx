@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import { useState, useEffect, useRef } from 'react'
 import { useActionState } from 'react'
 import { explain } from '../../actions'
-
 const CodeExplainForm = ({ onResult, onStatus, onClearView }) => {
   const [code, setCode] = useState("")
   const [language, setLanguage] = useState("javascript")
@@ -14,6 +13,7 @@ const CodeExplainForm = ({ onResult, onStatus, onClearView }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     submittedRef.current = { code, language }
+    onStatus({ isPending: true, error: null })
     const formData = new FormData()
     formData.set("code", code)
     formData.set("language", language)
@@ -53,8 +53,21 @@ const CodeExplainForm = ({ onResult, onStatus, onClearView }) => {
           className='border border-gray-600 bg-gray-800 text-white rounded-lg p-2.5 w-full mb-5 focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] outline-none'
         >
           <option value="javascript">JavaScript</option>
-          <option value="Python">Python</option>
+          <option value="typescript">TypeScript</option>
+          <option value="python">Python</option>
           <option value="java">Java</option>
+          <option value="cpp">C++</option>
+          <option value="csharp">C#</option>
+          <option value="go">Go</option>
+          <option value="rust">Rust</option>
+          <option value="ruby">Ruby</option>
+          <option value="php">PHP</option>
+          <option value="swift">Swift</option>
+          <option value="kotlin">Kotlin</option>
+          <option value="sql">SQL</option>
+          <option value="html">HTML</option>
+          <option value="css">CSS</option>
+          <option value="bash">Bash</option>
         </select>
 
         <label className='block mb-2 font-semibold text-gray-300'>Your Code:</label>
@@ -63,7 +76,12 @@ const CodeExplainForm = ({ onResult, onStatus, onClearView }) => {
           onChange={(e) => setCode(e.target.value)}
           required
           placeholder='Paste your code here...'
-          className='text-white border border-gray-600 rounded-lg w-full p-3 font-mono text-sm bg-gray-800 min-h-[200px] resize-y focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] outline-none'
+          className='rounded-lg w-full p-3 font-mono text-sm min-h-[200px] resize-y focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] outline-none border'
+          style={{
+            backgroundColor: 'var(--code-bg)',
+            color: 'var(--code-text)',
+            borderColor: 'var(--code-border)',
+          }}
         />
 
         <div className="flex gap-3">

@@ -4,6 +4,8 @@ import CodeExplainForm from "./forms/CodeExplainForm"
 import CodeExplanation from './CodeExplanation'
 import Error from './Error'
 import Sidebar from "./Sidebar"
+import Skeleton from './Skeleton'
+import { useToast } from '../context/ToastContext'
 
 const CodeEntry = () => {
   const [history, setHistory] = useState([])
@@ -11,6 +13,8 @@ const CodeEntry = () => {
   const [currentExplanation, setCurrentExplanation] = useState(null)
   const [isPending, setIsPending] = useState(false)
   const [error, setError] = useState(null)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const { showToast } = useToast()
 
   const handleResult = useCallback((result) => {
     const id = Date.now()
@@ -34,6 +38,7 @@ const CodeEntry = () => {
       setCurrentExplanation(entry.explanation)
       setError(null)
     }
+    setSidebarOpen(false)
   }, [history])
 
   const handleDelete = useCallback((id) => {
@@ -42,13 +47,22 @@ const CodeEntry = () => {
       setActiveId(null)
       setCurrentExplanation(null)
     }
-  }, [activeId])
+    showToast('History deleted', 'info')
+  }, [activeId, showToast])
+
+  const handleClearAll = useCallback(() => {
+    setHistory([])
+    setActiveId(null)
+    setCurrentExplanation(null)
+    setError(null)
+  }, [])
 
   const handleNewChat = useCallback(() => {
     setActiveId(null)
     setCurrentExplanation(null)
     setIsPending(false)
     setError(null)
+    setSidebarOpen(false)
   }, [])
 
   const showLoading = isPending
@@ -63,10 +77,34 @@ const CodeEntry = () => {
         onSelect={handleSelect}
         onNewChat={handleNewChat}
         onDelete={handleDelete}
+        onClearAll={handleClearAll}
+        open={sidebarOpen}
+        onToggle={() => setSidebarOpen(prev => !prev)}
       />
-      <div className="flex-1 flex min-h-0 ml-72">
-        <div className="w-[480px] flex-shrink-0 overflow-hidden pt-6 px-6 flex flex-col">
-          <Header/>
+
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-[5] md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      <div className="flex-1 flex min-h-0 md:ml-72">
+        <div className="w-full md:w-[480px] flex-shrink-0 overflow-hidden pt-6 px-6 flex flex-col">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="md:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-all duration-200"
+              title="Open sidebar"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+            <div className="flex-1">
+              <Header/>
+            </div>
+          </div>
           <CodeExplainForm
             onResult={handleResult}
             onStatus={handleStatus}
@@ -85,14 +123,7 @@ const CodeEntry = () => {
               </div>
             </div>
           )}
-          {showLoading && (
-            <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700 p-6 rounded-2xl shadow-2xl animate-fadeInUp">
-              <div className="flex items-center gap-3 text-gray-400">
-                <div className="animate-spin w-5 h-5 border-2 border-t-transparent rounded-full" style={{ borderColor: 'var(--color-accent)', borderTopColor: 'transparent' }} />
-                <span>Analyzing your code...</span>
-              </div>
-            </div>
-          )}
+          {showLoading && <Skeleton />}
           {showExplanation && (
             <CodeExplanation explanation={currentExplanation} />
           )}

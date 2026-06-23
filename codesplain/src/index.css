@@ -104,6 +104,22 @@ body {
   z-index: -1;
 }
 
+[data-animations="off"] #background {
+  animation: none;
+  background: #000000;
+  background-size: auto;
+}
+
+[data-animations="off"] #background::before,
+[data-animations="off"] #background::after {
+  animation: none;
+  opacity: 0;
+}
+
+[data-animations="off"] #background .grid-overlay {
+  opacity: 0;
+}
+
 /* ─── Floating orbs ─── */
 @keyframes floatOrb {
   0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
@@ -168,6 +184,34 @@ body {
 .animate-pulseGlow {
   animation: pulseGlow 3s ease-in-out infinite;
 }
+
+/* ─── Shimmer skeleton ─── */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, #1f2937 25%, #2d3748 50%, #1f2937 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+.bg-gray-850 { background-color: #172033; }
+
+/* ─── Code input themes ─── */
+[data-code-theme="dark"] {
+  --code-bg: #1f2937;
+  --code-text: #ffffff;
+  --code-border: #4b5563;
+}
+
+[data-code-theme="light"] {
+  --code-bg: #f3f4f6;
+  --code-text: #111827;
+  --code-border: #d1d5db;
+}
+.border-gray-750 { border-color: #253047; }
 
 /* ─── Smooth scrollbar ─── */
 ::-webkit-scrollbar { width: 8px; }

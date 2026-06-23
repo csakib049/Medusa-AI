@@ -10,10 +10,30 @@ export const ThemeProvider = ({ children }) => {
     return localStorage.getItem('medusa-theme') || 'green'
   })
 
+  const [animationsEnabled, setAnimationsEnabled] = useState(() => {
+    const stored = localStorage.getItem('medusa-animations')
+    return stored !== null ? stored === 'true' : true
+  })
+
+  const [codeTheme, setCodeTheme] = useState(() => {
+    const stored = localStorage.getItem('medusa-code-theme')
+    return stored || 'dark'
+  })
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
     localStorage.setItem('medusa-theme', theme)
   }, [theme])
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-animations', animationsEnabled ? 'on' : 'off')
+    localStorage.setItem('medusa-animations', animationsEnabled)
+  }, [animationsEnabled])
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-code-theme', codeTheme)
+    localStorage.setItem('medusa-code-theme', codeTheme)
+  }, [codeTheme])
 
   const cycleTheme = () => {
     setTheme(prev => {
@@ -22,8 +42,16 @@ export const ThemeProvider = ({ children }) => {
     })
   }
 
+  const toggleAnimations = () => {
+    setAnimationsEnabled(prev => !prev)
+  }
+
+  const toggleCodeTheme = () => {
+    setCodeTheme(prev => prev === 'dark' ? 'light' : 'dark')
+  }
+
   return (
-    <ThemeContext.Provider value={{ theme, cycleTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme, cycleTheme, animationsEnabled, toggleAnimations, codeTheme, toggleCodeTheme }}>
       {children}
     </ThemeContext.Provider>
   )
