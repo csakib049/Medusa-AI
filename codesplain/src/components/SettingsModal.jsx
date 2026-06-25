@@ -18,6 +18,26 @@ const themes = [
     label: 'Red',
     colors: ['#f87171', '#dc2626', '#1c1017'],
   },
+  {
+    id: 'blue',
+    label: 'Blue',
+    colors: ['#60a5fa', '#2563eb', '#0a1628'],
+  },
+  {
+    id: 'orange',
+    label: 'Orange',
+    colors: ['#fb923c', '#ea580c', '#1c0f06'],
+  },
+  {
+    id: 'pink',
+    label: 'Pink',
+    colors: ['#f472b6', '#db2777', '#1c0a14'],
+  },
+  {
+    id: 'yellow',
+    label: 'Yellow',
+    colors: ['#fbbf24', '#d97706', '#1c1406'],
+  },
 ]
 
 const SettingsModal = ({ open, onClose, onClearAll }) => {
