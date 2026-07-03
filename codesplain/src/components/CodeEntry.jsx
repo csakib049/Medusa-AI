@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import Header from "./Header"
 import CodeExplainForm from "./forms/CodeExplainForm"
 import CodeExplanation from './CodeExplanation'
@@ -14,7 +14,21 @@ const CodeEntry = () => {
   const [isPending, setIsPending] = useState(false)
   const [error, setError] = useState(null)
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [showScrollTop, setShowScrollTop] = useState(false)
+  const scrollRef = useRef(null)
   const { showToast } = useToast()
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const onScroll = () => setShowScrollTop(el.scrollTop > 300)
+    el.addEventListener('scroll', onScroll)
+    return () => el.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const scrollToTop = () => {
+    scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const handleResult = useCallback((result) => {
     const id = Date.now()
@@ -111,7 +125,7 @@ const CodeEntry = () => {
             onClearView={handleNewChat}
           />
         </div>
-        <div className="flex-1 overflow-y-auto p-6 pl-0">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 pl-0">
           {!showLoading && !showExplanation && !showError && (
             <div className="h-full flex items-center justify-center text-gray-600 animate-fadeInUp">
               <div className="text-center">
@@ -132,6 +146,16 @@ const CodeEntry = () => {
           )}
         </div>
       </div>
+
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-6 right-6 z-50 p-3 rounded-full bg-gray-900 border border-gray-700 text-gray-300 shadow-lg transition-all duration-300 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] hover:shadow-[var(--color-accent-glow)] ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}
+        title="Back to top"
+      >
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+        </svg>
+      </button>
     </div>
   )
 }
