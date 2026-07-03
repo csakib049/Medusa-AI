@@ -4,9 +4,14 @@ Medusa AI is a code explanation tool that helps you understand code in any progr
 
 ## Screenshots
 
-| Home | Settings | Languages |
-|------|----------|-----------|
-| ![Home](screenshots/1st.png) | ![Settings](screenshots/2nd.png) | ![Languages](screenshots/m3%20languages.png) |
+### Home
+![Home](screenshots/1st.png)
+
+### Settings
+![Settings](screenshots/2nd.png)
+
+### Languages
+![Languages](screenshots/m3%20languages.png)
 
 ## Features
 
