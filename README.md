@@ -2,6 +2,8 @@
 
 Medusa AI is a code explanation tool that helps you understand code in any programming language. Paste your code, select the language, and get a detailed breakdown.
 
+**Live:** [https://medusa-ai-front.onrender.com/](https://medusa-ai-front.onrender.com/)
+
 ## Screenshots
 
 ### Home
