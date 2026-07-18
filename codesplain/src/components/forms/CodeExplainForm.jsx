@@ -17,7 +17,7 @@ const CodeExplainForm = ({ onResult, onStatus, onClearView }) => {
     const formData = new FormData()
     formData.set("code", code)
     formData.set("language", language)
-    formAction(formData)
+    setTimeout(() => formAction(formData), 0)
   }
 
   useEffect(() => {

@@ -241,6 +241,24 @@ body {
   animation: shimmer 1.8s ease-in-out infinite;
 }
 
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 2.5s linear infinite;
+}
+
+@keyframes pulseScale {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.05); opacity: 0.6; }
+}
+
+.animate-pulse-scale {
+  animation: pulseScale 2s ease-in-out infinite;
+}
+
 .bg-gray-850 { background-color: #172033; }
 
 /* ─── Code input themes ─── */
